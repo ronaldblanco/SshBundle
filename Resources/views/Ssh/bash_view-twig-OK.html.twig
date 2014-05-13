@@ -1,0 +1,60 @@
+{% extends 'AcmeLoginBundle::datatable.html.twig' %} 
+       
+{% block title %} {{ app.session.get('login') }} | {{ title }} | {% endblock %}
+
+{% block content %}
+
+<style type="text/css" title="currentStyle">
+	@import "http://192.168.17.77/DataTables/media/css/demo_page.css";
+	@import "http://192.168.17.77/DataTables/media/css/demo_table.css";
+</style>
+		
+<script src="http://192.168.17.77/relacion_usuarios/assets/bootstrap/js/jquery.js"></script>
+			
+<script src="http://192.168.17.77/DataTables/media/js/jquery.dataTables.js"></script>
+	
+	
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#yo').dataTable();
+	} );
+</script>
+
+{% if miarray and app.session.flash('error') == null %}
+<div class="alert alert-block"><h4 class="alert-heading">Warning!</h4>Tenga en cuenta que se considera $ como el fin de cada linea a representar.</div>
+<div class="alert alert-info"><h1>El resultado obtenido{%if cmd%} de ({{cmd}}){%endif%} es:</h1></div>
+{%endif%}
+
+	
+
+<form name="frm_ftp" action="bashcmd" method="POST" class="form">
+	
+    <table cellpadding="0" cellspacing="0" border="0" class="display" id="yo" width="100%">
+    	
+    
+    	{% if miarray %}
+    	<thead>
+        <tr class="odd gradeX">
+            <th>Resultados:</th>
+        </tr>
+    	</thead>
+    		<tbody>
+    		{% for line in miarray %}
+				<tr class="odd gradeA"><td>{{line}}</td></tr>
+			{% endfor %}
+			</tbody>
+	<tfoot>
+		<tr class="odd group">
+			<th>Fin Resultados!</th>
+		</tr>
+		<tr><td><li><a href="{{ path('ssh') }}">Ejecutar otro comando!</a></li></td></tr>
+	</tfoot>
+			
+    	{% endif %}
+    
+    
+    </table>
+
+</form>
+
+{% endblock %}

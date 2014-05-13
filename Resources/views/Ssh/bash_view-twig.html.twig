@@ -1,0 +1,70 @@
+{% extends 'AcmeLoginBundle::datatable.html.twig' %} 
+       
+{% block title %} {{ app.session.get('login') }} | {{ title }} | {% endblock %}
+
+{% block content %}
+
+
+<script src="http://192.168.17.77/misasset/js.functions/jquery.autotab-1.1b.js" type="text/javascript" charset="utf-8"></script>
+
+<script type=text/javascript>
+$(document).ready(function() {
+     $('#time').autotab({  format: 'numeric' });
+     $('#file').autotab({  format: 'explorer' });
+     $('#server').autotab({ format: 'ipadr' })
+});
+</script>
+	
+
+<form name="frm_ftp" action="bashcmd" method="POST" class="form">
+	
+    <table cellpadding="0" cellspacing="0" border="0">
+        
+       <tr>
+            <td align="right">Servidor:</td>
+            <td align="left"><input type="text" name="server" value="192.168." maxlength="20" id="server"/></td>
+            <td align="right">Salvar Servidor:</td>
+            <td align="left"><input type="checkbox" name="savehost" value="savehost"/></td>
+       </tr>
+       
+       {% if app.session.get('savehost') %}
+       		<tr><td></td><td align='right' style='color: #FF0000'>{{ app.session.get('savehost') }}</td></tr>
+       {% endif %}
+       
+       <tr>
+            <td align="right">Password del root:</td>
+            <td align="left"><input type="password" name="password" value="" maxlength="20"/></td>
+            <td align="right">Salvar Password:</td>
+            <td align="left"><input type="checkbox" name="savepass" value="save"/></td>
+       </tr>
+       
+       {% if app.session.get('savepass') %}
+       		<tr><td></td><td align='right' style='color: #FF0000'>Password</td></tr>
+       {% endif %}
+       
+    </table>
+    <table width='0%' border='0' cellspacing='1' cellpadding='0' >
+       
+       <tr>
+            <td align="right">Comando:</td>
+            <td align="left"><input type="text" name="cmd" value="" maxlength="250" id="cmd" size="40"/></td>
+            <td align="right">No Generar Salida:</td>
+            <td align="left"><input type="checkbox" name="noout" value="noout"/></td>
+       </tr>
+       
+       <tr>
+            <td align="right">Esperar (seg):</td>
+            <td align="left"><input type="text" name="time" value=5 maxlength="10" id="time" size="5"/></td>
+       </tr>
+  
+            	
+            <tr><td colspan="2" align="right"><input type="submit" value="OK" name="ingresar"/></td></tr>
+            <tr><td><li><a href="{{ path('cleansshcache') }}">Limpiar Memoria</a></li></td></tr>
+     
+    </table>
+    
+    
+    
+</form>
+
+{% endblock %}

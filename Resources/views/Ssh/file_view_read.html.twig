@@ -1,0 +1,49 @@
+{% extends 'AcmeLoginBundle::datatable.html.twig' %} 
+       
+{% block title %} {{ app.session.get('login') }} | {{ title }} | {% endblock %}
+
+{% block content %}
+<script src="/relacion_usuarios/assets/relacion_usuarios/js.functions/jquery.autotab-1.1b.js" type="text/javascript" charset="utf-8"></script>
+
+<script type=text/javascript>
+$(document).ready(function() {
+     $('#local').autotab({  format: 'explorer' });
+     $('#remote').autotab({  format: 'explorer' });
+     $('#sourceserver').autotab({  format: 'ipadr' });
+     $('#server').autotab({ format: 'ipadr' })
+});
+</script>
+
+<form name="frm_ftp" action="ficherowrite" method="POST" class="form">
+    <table width='0%' border='0' cellspacing='1' cellpadding='0' >
+             
+<div class="alert alert-block"><h4 class="alert-heading">Warning!</h4>Tenga en cuenta que se considera $ como el fin de cada linea a representar.
+	Si el fichero contiene este simbolo como caracter común en su contenido será deformado y dividido, revise bien el fichero y el texto antes de escribir el cambio!</div>
+<div class="alert alert-info"><h1>El fichero {{ app.session.get('savehost')}}:{{app.session.get('remotefile') }} contiene el siguiente texto:</h1></div>      
+       
+    </table>
+    <table width='0%' border='0' cellspacing='1' cellpadding='0' >
+      	
+      
+    {% if miarray %}
+       <tr>
+            <td align="right">Texto:</td>
+            <td align="left"><textarea name="mitexto" rows="10" cols="400">
+            	{% for line in miarray %}
+            		{% if line != "" and line != " " and line != "  "%}
+						{{line}}$
+					{%endif%}
+				{% endfor %}
+            </textarea></td>
+       </tr>
+	{%endif%}	
+            	
+            <tr><td colspan="2" align="right"><input type="submit" value="Escribir" name="ingresar"/></td></tr>
+            <tr><td><li><a href="{{ path('fichero') }}">Leer otro fichero!</a></li></td></tr>
+            <!--<tr><td align="right">El nombre del fichero no puede contener espacios en blanco y no debe ser mayor de mb!</td></tr>-->
+       
+    </table>
+  
+</form>
+
+{% endblock %}

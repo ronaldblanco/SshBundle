@@ -1,0 +1,27 @@
+#//////////////////////////////////////////////////////////////////////
+ssh:
+    pattern:      /ssh
+    defaults:     { _controller: AcmeSshBundle:Ssh:index }
+    type:         post
+
+bashcmd:
+    pattern:      /bashcmd
+    defaults:     { _controller: AcmeSshBundle:Ssh:bashcmd }
+
+fichero:
+    pattern:      /fichero
+    defaults:     { _controller: AcmeSshBundle:Ssh:fichero }
+    type:         post
+ 
+ficheroread:
+    pattern:      /ficheroread
+    defaults:     { _controller: AcmeSshBundle:Ssh:ficheroread }
+
+ficherowrite:
+    pattern:      /ficherowrite
+    defaults:     { _controller: AcmeSshBundle:Ssh:ficherowrite }
+
+cleansshcache:
+    pattern:      /cleansshcache
+    defaults:     { _controller: AcmeSshBundle:Ssh:cleansshcache }
+#////////////////////////////////////////////////////////////////////////

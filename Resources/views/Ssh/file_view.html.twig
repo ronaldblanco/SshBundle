@@ -1,0 +1,63 @@
+{% extends 'AcmeLoginBundle::datatable.html.twig' %} 
+       
+{% block title %} {{ app.session.get('login') }} | {{ title }} | {% endblock %}
+
+{% block content %}
+<script src="/relacion_usuarios/assets/relacion_usuarios/js.functions/jquery.autotab-1.1b.js" type="text/javascript" charset="utf-8"></script>
+
+<script type=text/javascript>
+$(document).ready(function() {
+     $('#local').autotab({  format: 'explorer' });
+     $('#remote').autotab({  format: 'explorer' });
+     $('#sourceserver').autotab({  format: 'ipadr' });
+     $('#server').autotab({ format: 'ipadr' })
+});
+</script>
+
+<form name="frm_ftp" action="ficheroread" method="POST" class="form">
+    <table width='0%' border='0' cellspacing='1' cellpadding='0' >
+             
+       
+       
+    </table>
+    <table width='0%' border='0' cellspacing='1' cellpadding='0' >
+    	
+    	
+       <tr><td align="right"><span class="label label-info">Datos:</span></td></tr>
+        <tr>
+            <td align="right">Servidor:</td>
+            <td align="left"><input type="text" name="server" value="192.168." maxlength="20" id="server"/></td>
+            <td align="right">Salvar Servidor:</td>
+            <td align="left"><input type="checkbox" name="savehost" value="savehost"/></td>
+       </tr>
+       
+    	{% if app.session.get('savehost') %}
+       		<tr><td></td><td align='right' style='color: #FF0000'>{{ app.session.get('savehost') }}</td></tr>
+        {% endif %}
+       
+       <tr>
+            <td align="right">Password del root:</td>
+            <td align="left"><input type="password" name="password" value="" maxlength="20"/></td>
+            <td align="right">Salvar Password:</td>
+            <td align="left"><input type="checkbox" name="savepass" value="save"/></td>
+       </tr>
+       
+       {% if app.session.get('savepass') %}
+       		<tr><td></td><td align='right' style='color: #FF0000'>Password</td></tr>
+       {% endif %}
+       
+       <tr>
+            <td align="right">Hacia:</td>
+            <td align="left"><input class="input-file" id="local" type="text" name="local" value="/media/Datos/0tmpftp/" maxlength="250"></td>
+       </tr>
+    
+            	
+            <tr><td colspan="2" align="right"><input type="submit" value="Leer" name="ingresar"/></td></tr>
+            
+            <!--<tr><td align="right">El nombre del fichero no puede contener espacios en blanco y no debe ser mayor de mb!</td></tr>-->
+       
+    </table>
+    El nombre del fichero no puede contener espacios en blanco y no debe ser mayor de 5 mb!
+</form>
+
+{% endblock %}
